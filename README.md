@@ -1,7 +1,4 @@
-# entropic_measurement
-
-**A Python library for explicit correction and traceability of informational bias in scientific and industrial measurement.**  
-Inspired by the “Entropic Measurement Revolution” developed by Raphael Constantinis, this package enables robust, transparent, and reproducible correction of entropic bias using modern statistical entropy metrics.
+### Entropic Measurement Revolution
 
 ## Features
 
@@ -48,6 +45,17 @@ logger.export("audit_log.csv", format="csv")
 - **Medical analysis**: ensure reproducibility and reliability in diagnostics
 - **Industrial quality control**: documentation and certification with entropic measurement scores
 - **Open science**: provide FAIR data with explicit uncertainty and bias info
+
+
+## Documentation
+
+**A Python library for explicit correction and traceability of informational bias in scientific and industrial measurement.**  
+Inspired by the “Entropic Measurement Revolution” developed by Raphael Constantinis, this package enables robust, transparent, and reproducible correction of entropic bias using modern statistical entropy metrics.
+
+Comprehensive documentation is available in the [Wiki](https://github.com/rconstant1/entropic_measurement/wiki).
+
+- [Getting Started](https://github.com/rconstant1/entropic_measurement/wiki/Quick-Start-Guide)
+- [Full Table of Contents](https://github.com/rconstant1/entropic_measurement/wiki)
 
 ## License
 
