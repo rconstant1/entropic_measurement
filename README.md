@@ -1,0 +1,60 @@
+# entropic_measurement
+
+**A Python library for explicit correction and traceability of informational bias in scientific and industrial measurement.**  
+Inspired by the “Entropic Measurement Revolution” developed by Raphael Constantinis, this package enables robust, transparent, and reproducible correction of entropic bias using modern statistical entropy metrics.
+
+## Features
+
+- Universal correction of entropic bias in any measurement process
+- Calculation of Shannon and Kullback-Leibler (KL) entropies
+- Traceability and export of entropic cost for each measurement (CSV or JSON logs)
+- Extensible, object-oriented API compatible with scientific workflows
+- Ready for integration with machine learning, experiments, open data, and more
+
+## Project Structure
+ ```
+entropic_measurement/
+├── __init__.py
+├── measurement.py
+├── entropy.py
+├── correction.py
+├── logger.py
+└── utils.py
+ ```
+
+## Example Usage
+
+from entropic_measurement.utils import measure_and_correct
+from entropic_measurement.logger import EntropicLogger
+ ```
+Example data
+observed_dist = [0.6, 0.4]
+true_dist = [0.7, 0.3]
+observed_value = 10.0
+
+Bias correction
+result = measure_and_correct(observed_value, observed_dist, true_dist, beta=1.0)
+print("Result:", result)
+
+Logging and exporting audit
+logger = EntropicLogger()
+logger.record(result)
+logger.export("audit_log.csv", format="csv")
+ ```
+## Applications
+
+- **Physical and chemical experiments**: calibrate scientific measures with informational transparency
+- **AI and data science**: detect, quantify and correct algorithmic bias robustly
+- **Medical analysis**: ensure reproducibility and reliability in diagnostics
+- **Industrial quality control**: documentation and certification with entropic measurement scores
+- **Open science**: provide FAIR data with explicit uncertainty and bias info
+
+## License
+
+All code and methods are released in the **public domain (CC0)** – no copyright, patent, or exclusive ownership.
+
+## Contributing
+
+Contributions, feedback, and interdisciplinary collaboration are welcome.  
+Standardize entropic metrology in your field and expand this library with new modules and applications!
+
