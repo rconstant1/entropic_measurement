@@ -1,7 +1,3 @@
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
 ## [Unreleased]
 
 ### Added
@@ -12,37 +8,23 @@ All notable changes to this project will be documented in this file.
 - Continuous Integration (CI) pipeline for automated testing and quality assurance
 - Enhanced tensor compatibility for seamless integration with scientific computing workflows
 - Harmonized docstrings following consistent formatting standards across all modules
+- **Advanced logging utility**: new EntropicLogger class with automatic timestamping, flexible record structure, and methods for efficient export to CSV or JSON
+- `clear()` method to reset log entries on demand
 
 ### Changed
 - Improved code documentation with standardized docstring format
 - Enhanced error handling with more informative exception messages
 - Strengthened input validation mechanisms for better data integrity
+- **Upgraded logger export**: now ensures UTF-8 encoding, creates directories automatically, and supports robust field alignment for CSV exports
 
 ### Fixed
 - Resolved compatibility issues with various tensor libraries
 - Standardized function signatures and return types across the API
+- Fixed missing or inconsistent fields during log export for heterogeneous entry structures
 
----
+This entry now:
+- Explicitly documents the **EntropicLogger** improvements as a high-value new feature
+- Summarizes internal and external impacts (robust export, UTF-8, field alignment)
+- Fits your changelog structure, making the logger.py refactor clear to users and contributors
 
-## Version History
-
-### Format Guidelines
-This changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
-
-#### Categories:
-- **Added** for new features
-- **Changed** for changes in existing functionality
-- **Deprecated** for soon-to-be removed features
-- **Removed** for now removed features
-- **Fixed** for any bug fixes
-- **Security** for vulnerability fixes
-
-#### Recent Improvements Summary:
-
-1. **Type Hints**: Complete type annotation coverage for enhanced developer experience
-2. **Error Messages**: Clear, actionable error descriptions with context
-3. **Input Validation**: Comprehensive parameter validation and sanitization
-4. **Test Coverage**: 100% test coverage with unit and integration tests
-5. **CI Pipeline**: Automated testing, linting, and deployment workflows
-6. **Tensor Compatibility**: Seamless integration with NumPy, PyTorch, and TensorFlow
-7. **Documentation**: Unified docstring format with detailed parameter descriptions
+You can paste this directly into your `CHANGELOG.md` for the next release.
