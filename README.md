@@ -38,6 +38,26 @@ logger = EntropicLogger()
 logger.record(result)
 logger.export("audit_log.csv", format="csv")
  ```
+
+## Quick Start: Value Proposition vs. SciPy, Statsmodels & Others
+ ```
+| Task                              | SciPy/Statsmodels                | entropic_measurement              | Key Value Add                                   |
+|-----------------------------------|----------------------------------|-----------------------------------|-------------------------------------------------|
+| Compute mean & std                | Yes (`numpy.mean`, `numpy.std`)  | Indirect (basic stats)            | Standard statistics only                        |
+| Robust to distribution shape      | No (assumes normality)           | Yes (explicit entropy correction) | Handles multi-modal, non-Gaussian, biased data  |
+| Bias correction in measurement    | No                               | Yes (info-theoretic correction)   | Makes uncertainty sources explicit, corrects    |
+| Traceable entropic cost export    | No                               | Yes (CSV/JSON logging)            | Audit-friendly, detailed reporting              |
+| Designed for science & ML workflow| Limited (not traceable)          | Yes (object-oriented, extensible) | Open, composable, machine learning ready        |
+| Entropy/KL metrics                | Partially (scipy.stats.entropy)  | Yes (dedicated methods, traceable)| Fully traceable & ready for bias audit          |
+ ```
+## When to Use Mean/Std vs. Entropy/Correction?- Use **mean/std** if:
+  - Data is symmetric, unimodal, and low-uncertainty
+  - Normality assumptions hold and you only need simple summary statistics
+- Prefer **entropy/correction** if:
+  - Data is multi-modal, skewed, or structurally uncertain
+  - You need to detect, quantify, or correct bias/uncertainty in measurements
+  - Reproducibility, transparency, and traceable uncertainty matter
+
 ## Applications
 
 - **Physical and chemical experiments**: calibrate scientific measures with informational transparency
