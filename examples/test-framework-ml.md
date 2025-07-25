@@ -72,24 +72,27 @@ for attr in protected_attributes:
 
 ```python
 def test_entropy_framework(X, y, protected_attr='sex'):
-    """Test du framework avec calculs d'entropie par groupes"""
-    
+    """
+    Test du framework avec calculs d'entropie par groupes.
+    La variable cible y doit être une série de labels de type '<=50K' / '>50K'.
+    """
     results = {}
-    
+    # Recode la cible en 0/1 pour permettre le calcul numérique
+    y_binary = (y == '>50K').astype(int)
+
     for group in X[protected_attr].unique():
-        # Filtrer les données par groupe
         group_mask = X[protected_attr] == group
-        group_target = y[group_mask]
+        group_target = y_binary[group_mask]
         
-        # Calculer la distribution des classes
+        # Calcul de la distribution des classes (0/1)
         class_dist = group_target.value_counts(normalize=True).values
         
-        # Utiliser votre framework pour calculer l'entropie
+        # Calcul de l'entropie via ton framework
         entropy = EntropyEstimator.shannon_entropy(class_dist)
         
         results[group] = {
             'size': len(group_target),
-            'positive_rate': group_target.mean(),
+            'positive_rate': group_target.mean(),  # .mean() OK car ici c'est 0/1
             'entropy': entropy,
             'distribution': class_dist
         }
@@ -155,55 +158,60 @@ bias_metrics = detect_bias_with_entropy(entropy_results)
 ### Application de corrections avec logging
 
 ```python
+from entropic_measurement.measurement import Measurement
+
 def apply_bias_correction_with_logging(X, y, protected_attr='sex'):
-    """Application des corrections avec traçabilité"""
-    
-    # Initialiser votre logger
+    """Application des corrections avec traçabilité (version Measurement API)"""
     logger = EntropicLogger()
-    
     corrections_applied = []
-    
+    y_binary = (y == '>50K').astype(int)
+    corrector = EntropicBiasCorrector(beta=1.0)
+
+    # Ici, pour la démonstration, on prend observed_value = moyenne brute,
+    # observed_distribution = distribution empirique sur le groupe,
+    # true_distribution = distribution globale du dataset (c'est un exemple générique)
+    global_distribution = y_binary.value_counts(normalize=True).values
+
     for group in X[protected_attr].unique():
         group_mask = X[protected_attr] == group
-        group_data = X[group_mask]
-        group_target = y[group_mask]
+        group_target = y_binary[group_mask]
+        group_dist = group_target.value_counts(normalize=True).values
+        observed_value = group_target.mean()
         
-        # Appliquer une correction avec votre framework
-        corrected_predictions = BiasCorrector.apply_correction(
-            observed_values=group_target.values,
-            method='entropy_regularization'
+        meas = Measurement(
+            observed_value=observed_value,
+            observed_distribution=group_dist,
+            true_distribution=global_distribution
         )
-        
-        original_rate = group_target.mean()
-        corrected_rate = corrected_predictions.mean()
-        
+        correction_result = corrector.correct(measurement=meas)
+
+        # On suppose que le correcteur renvoie un dict avec 'corrected_value' et 'entropy_cost'
+        if isinstance(correction_result, dict) and 'corrected_value' in correction_result:
+            corrected = correction_result['corrected_value']
+            entropy_cost = correction_result.get('entropy_cost', None)
+        else:
+            corrected = correction_result
+            entropy_cost = None
+
         correction_record = {
             'group': group,
-            'original_rate': original_rate,
-            'corrected_rate': corrected_rate,
-            'entropy_cost': BiasCorrector.get_entropy_cost(),
+            'original_rate': observed_value,
+            'corrected_rate': corrected,
+            'entropy_cost': entropy_cost,
             'method': 'entropy_regularization',
-            'kl_divergence': EntropyEstimator.kullback_leibler(
-                group_target.value_counts(normalize=True).values,
-                corrected_predictions
-            )
+            'kl_divergence': EntropyEstimator.kullback_leibler(group_dist, global_distribution)
         }
-        
+
         corrections_applied.append(correction_record)
-        
-        # Log avec votre framework
         logger.record(correction_record)
-        
+
         print(f"Correction appliquée pour {group}:")
-        print(f"  Taux original: {original_rate:.3f}")
-        print(f"  Taux corrigé: {corrected_rate:.3f}")
-        print(f"  Coût entropique: {correction_record['entropy_cost']:.3f}")
+        print(f"  Taux original: {observed_value:.3f}")
+        print(f"  Taux corrigé: {corrected:.3f}")
+        print(f"  Coût entropique: {entropy_cost}")
         print()
-    
-    # Export des logs
     logger.export('bias_correction_log.csv', format='csv')
     print("✅ Logs exportés vers bias_correction_log.csv")
-    
     return corrections_applied
 
 print("=== APPLICATION DES CORRECTIONS ===")
