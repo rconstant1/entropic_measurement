@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "entropic_measurement"
+version = "0.1.0"
+description = "A Python library for explicit correction and traceability of informational bias in scientific and industrial measurement"
+authors = [
+    { name="Raphael Constantinis", email="raphael@constantinis.com" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+]
+
+[project.urls]
+Homepage = "https://github.com/rconstant1/entropic_measurement"
+Documentation = "https://github.com/rconstant1/entropic_measurement/wiki"
+Issues = "https://github.com/rconstant1/entropic_measurement/issues"
