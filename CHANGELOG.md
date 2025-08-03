@@ -1,4 +1,4 @@
-## [Unreleased]
+## [v0.1.0] - 2025-07-28
 ### Added
 - Official PyPI publication: entropic_measurement package is published on PyPI for pip install.
 - Comprehensive Kaggle bias correction example and Wiki documentation.
