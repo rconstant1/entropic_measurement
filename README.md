@@ -1,5 +1,15 @@
 ### Entropic Measurement Revolution
 
+[![PyPI version](https://badge.fury.io/py/entropic-measurement.svg)](https://badge.fury.io/py/entropic-measurement)
+
+## Installation
+
+The package is now officially published on PyPI! Install it using pip:
+
+```bash
+pip install entropic-measurement
+```
+
 ## Features
 
 - Universal correction of entropic bias in any measurement process
@@ -9,7 +19,8 @@
 - Ready for integration with machine learning, experiments, open data, and more
 
 ## Project Structure
- ```
+
+```
 entropic_measurement/
 ├── __init__.py
 ├── measurement.py
@@ -17,30 +28,31 @@ entropic_measurement/
 ├── correction.py
 ├── logger.py
 └── utils.py
- ```
+```
 
 ## Example Usage
 
+```python
 from entropic_measurement.utils import measure_and_correct
 from entropic_measurement.logger import EntropicLogger
- ```
-Example data
+
+# Example data
 observed_dist = [0.6, 0.4]
 true_dist = [0.7, 0.3]
 observed_value = 10.0
 
-Bias correction
+# Bias correction
 result = measure_and_correct(observed_value, observed_dist, true_dist, beta=1.0)
 print("Result:", result)
 
-Logging and exporting audit
+# Logging and exporting audit
 logger = EntropicLogger()
 logger.record(result)
 logger.export("audit_log.csv", format="csv")
- ```
+```
 
 ## Quick Start: Value Proposition vs. SciPy, Statsmodels & Others
- ```
+
 | Task                              | SciPy/Statsmodels                | entropic_measurement              | Key Value Add                                   |
 |-----------------------------------|----------------------------------|-----------------------------------|-------------------------------------------------|
 | Compute mean & std                | Yes (`numpy.mean`, `numpy.std`)  | Indirect (basic stats)            | Standard statistics only                        |
@@ -49,14 +61,31 @@ logger.export("audit_log.csv", format="csv")
 | Traceable entropic cost export    | No                               | Yes (CSV/JSON logging)            | Audit-friendly, detailed reporting              |
 | Designed for science & ML workflow| Limited (not traceable)          | Yes (object-oriented, extensible) | Open, composable, machine learning ready        |
 | Entropy/KL metrics                | Partially (scipy.stats.entropy)  | Yes (dedicated methods, traceable)| Fully traceable & ready for bias audit          |
- ```
-## When to Use Mean/Std vs. Entropy/Correction?- Use **mean/std** if:
+
+## When to Use Mean/Std vs. Entropy/Correction?
+
+- Use **mean/std** if:
   - Data is symmetric, unimodal, and low-uncertainty
   - Normality assumptions hold and you only need simple summary statistics
+
 - Prefer **entropy/correction** if:
   - Data is multi-modal, skewed, or structurally uncertain
   - You need to detect, quantify, or correct bias/uncertainty in measurements
   - Reproducibility, transparency, and traceable uncertainty matter
+
+## Testing
+
+The project includes a comprehensive test suite located in the `tests/` folder. These tests ensure the reliability and correctness of all measurement correction algorithms and entropy calculations.
+
+### Running Tests
+
+To run the test suite, use pytest:
+
+```bash
+pytest
+```
+
+For detailed testing documentation, including test coverage and methodology, see the [Wiki Testing page](https://github.com/rconstant1/entropic_measurement/wiki/Testing).
 
 ## Applications
 
@@ -66,11 +95,11 @@ logger.export("audit_log.csv", format="csv")
 - **Industrial quality control**: documentation and certification with entropic measurement scores
 - **Open science**: provide FAIR data with explicit uncertainty and bias info
 
-
 ## Documentation
 
-**A Python library for explicit correction and traceability of informational bias in scientific and industrial measurement.**  
-Inspired by the “Entropic Measurement Revolution” developed by Raphael Constantinis, this package enables robust, transparent, and reproducible correction of entropic bias using modern statistical entropy metrics.
+**A Python library for explicit correction and traceability of informational bias in scientific and industrial measurement.**
+
+Inspired by the "Entropic Measurement Revolution" developed by Raphael Constantinis, this package enables robust, transparent, and reproducible correction of entropic bias using modern statistical entropy metrics.
 
 Comprehensive documentation is available in the [Wiki](https://github.com/rconstant1/entropic_measurement/wiki).
 
@@ -79,10 +108,9 @@ Comprehensive documentation is available in the [Wiki](https://github.com/rconst
 
 ## License
 
-All code and methods are released in the **public domain (CC0)** – no copyright, patent, or exclusive ownership.
+All code and methods are released in the public domain (CC0) – no copyright, patent, or exclusive ownership.
 
 ## Contributing
 
-Contributions, feedback, and interdisciplinary collaboration are welcome.  
+Contributions, feedback, and interdisciplinary collaboration are welcome.
 Standardize entropic metrology in your field and expand this library with new modules and applications!
-
